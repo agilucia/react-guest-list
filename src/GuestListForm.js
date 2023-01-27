@@ -39,30 +39,20 @@ export default function GuestListForm() {
     <h1>Guest List</h1>
     <br />
     <form onSubmit={handleSubmit}>
-      <input onChange={handleChange}
+      <label>First name<input onChange={handleChange}
       value={firstName}
-      placeholder="First name" />
-      <input onChange={handleAnotherChange}
+      placeholder="First name" /> </label>
+      <label>Last name<input onChange={handleAnotherChange}
       value={lastName}
-      placeholder="Last name" />
-      <button>Add guest</button>
+      placeholder="Last name" /></label>
+      <button hidden>Add guest</button>
       <br />
       <br />
       Guests: {guests.map((guest) => {
-        return <div key={`guest-${guest.id}`}>{guest.name.first} {guest.name.last}</div>;
+        return <div key={`guest-${guest.id}`}>{guest.name.first} {guest.name.last} <input checked={isChecked} type="checkbox" onChange={(event) => setIsChecked(event.currentTarget.checked)} />
+        Is {isChecked ? '' : 'not'} attending!</div>;
       })}
     </form>
-      <div>
-
-        <form onChange={handleChange}>
-          <label>First name <input placeholder="Your first name" /></label>
-          <label>Last name <input placeholder="Your last name" /></label>
-        </form>
-      </div>
-      <div>
-        <input checked={isChecked} type="checkbox" onChange={(event) => setIsChecked(event.currentTarget.checked)} />
-        Is {isChecked ? '' : 'not'} attending!
-      </div>
     </>
   )
 }
