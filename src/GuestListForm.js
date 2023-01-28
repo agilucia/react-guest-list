@@ -21,7 +21,7 @@ export default function GuestListForm() {
         name: {
           first: firstName,
           last: lastName,
-        }
+        },
       },
       ...guests,
     ];
@@ -31,29 +31,57 @@ export default function GuestListForm() {
     event.preventDefault();
   }
 
-  return(
+  return (
     <>
-    <h1>Guest List</h1>
-    <br />
-    <form onSubmit={handleSubmit}>
-      <label>First name<input onChange={handleChange}
-      value={firstName}
-      placeholder="First name" /> </label>
-      <label>Last name<input onChange={handleAnotherChange}
-      value={lastName}
-      placeholder="Last name" /></label>
-      <button hidden>Add guest</button>
+      <h1>Guest List</h1>
       <br />
-      <br />
-      Guests: {guests.map((guest) => {
-        return <div key={`guest-${guest.id}`}>{guest.name.first} {guest.name.last} <input aria-label={`Attending status ${guest.name.first} ${guest.name.last}`} checked={isChecked} type="checkbox" onChange={(event) => setIsChecked(event.currentTarget.checked)} />
-        Is {isChecked ? '' : 'not'} attending!<button aria-label={`Remove ${guest.name.first} ${guest.name.last}`} onClick={() => {
-          const newGuests = guests.filter((i) => {
-            return i.id !== newGuests.id;
-          });
-          setGuests(newGuests);}}>X</button></div>;
-      })}
-    </form>
+      <form onSubmit={handleSubmit}>
+        <label>
+          First name
+          <input
+            onChange={handleChange}
+            value={firstName}
+            placeholder="First name"
+          />{' '}
+        </label>
+        <label>
+          Last name
+          <input
+            onChange={handleAnotherChange}
+            value={lastName}
+            placeholder="Last name"
+          />
+        </label>
+        <button hidden>Add guest</button>
+        <br />
+        <br />
+        Guests:{' '}
+        {guests.map((guest) => {
+          return (
+            <div key={`guest-${guest.id}`}>
+              {guest.name.first} {guest.name.last}{' '}
+              <input
+                aria-label={`Attending status ${guest.name.first} ${guest.name.last}`}
+                checked={isChecked}
+                type="checkbox"
+                onChange={(event) => setIsChecked(event.currentTarget.checked)}
+              />
+              Is {isChecked ? '' : 'not'} attending!
+              <button
+                aria-label={`Remove ${guest.name.first} ${guest.name.last}`}
+                onClick={() => {
+                  const newGuests = guests.filter((i) => {
+                    return i.id !== newGuests.id;
+                  });
+                  setGuests(newGuests);
+                }}
+              >
+                X
+              </button>
+            </div>
+          );
+        })}
+      </form>
     </>
-  )
+  );
 }
