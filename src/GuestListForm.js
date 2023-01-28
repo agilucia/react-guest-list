@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-
-let id = 0;
+import { useState } from 'react';
 
 export default function GuestListForm() {
   const [isChecked, setIsChecked] = useState(false);
@@ -19,7 +17,7 @@ export default function GuestListForm() {
   function handleSubmit(event) {
     const newGuests = [
       {
-        id: id,
+        id: `${firstName}-${lastName}`,
         name: {
           first: firstName,
           last: lastName,
@@ -27,7 +25,6 @@ export default function GuestListForm() {
       },
       ...guests,
     ];
-    id++;
     setGuests(newGuests);
     setFirstName('');
     setLastName('');
@@ -49,8 +46,12 @@ export default function GuestListForm() {
       <br />
       <br />
       Guests: {guests.map((guest) => {
-        return <div key={`guest-${guest.id}`}>{guest.name.first} {guest.name.last} <input checked={isChecked} type="checkbox" onChange={(event) => setIsChecked(event.currentTarget.checked)} />
-        Is {isChecked ? '' : 'not'} attending!</div>;
+        return <div key={`guest-${guest.id}`}>{guest.name.first} {guest.name.last} <input aria-label={`Attending status ${guest.name.first} ${guest.name.last}`} checked={isChecked} type="checkbox" onChange={(event) => setIsChecked(event.currentTarget.checked)} />
+        Is {isChecked ? '' : 'not'} attending!<button aria-label={`Remove ${guest.name.first} ${guest.name.last}`} onClick={() => {
+          const newGuests = guests.filter((i) => {
+            return i.id !== newGuests.id;
+          });
+          setGuests(newGuests);}}>X</button></div>;
       })}
     </form>
     </>
