@@ -14,7 +14,7 @@ export default function ListApi() {
     const response = await fetch(`${baseUrl}/guests`);
     const allGuests = await response.json();
     setGuest(allGuests);
-    setIsLoading(false);
+    setTimeout(() => setIsLoading(false), 3000);
   }
   useEffect(() => {
     fetchGuests().catch(() => console.log('fetching guests went wrong'));
@@ -79,10 +79,9 @@ export default function ListApi() {
     );
   }
 
-  return isLoading ? (
-    <h1>Loading...</h1>
-  ) : (
+  return (
     <div data-test-id="guest">
+      {isLoading && <h1>Loading...</h1>}
       <h1>Guest List</h1>
       <div>
         <div>
@@ -94,6 +93,7 @@ export default function ListApi() {
                 <input
                   value={firstName}
                   onChange={(event) => setFirstName(event.currentTarget.value)}
+                  disabled={isLoading}
                 />
               </label>
               <br />
@@ -102,11 +102,14 @@ export default function ListApi() {
                 <input
                   value={lastName}
                   onChange={(event) => setLastName(event.currentTarget.value)}
+                  disabled={isLoading}
                 />
               </label>
               <br />
               <div>
-                <button onClick={addNewGuest}>ADD GUEST</button>
+                <button onClick={addNewGuest} disabled={isLoading}>
+                  ADD GUEST
+                </button>
               </div>
             </form>
           </div>
