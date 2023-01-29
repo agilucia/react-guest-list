@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 export default function ListApi() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [guest, setGuest] = useState([]);
+  const [guests, setGuests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // getting all guests
@@ -13,16 +13,12 @@ export default function ListApi() {
   async function fetchGuests() {
     const response = await fetch(`${baseUrl}/guests`);
     const allGuests = await response.json();
-    setGuest(allGuests);
+    setGuests(allGuests);
     setIsLoading(false);
   }
   useEffect(() => {
     fetchGuests().catch(() => console.log('fetching guests went wrong'));
   }, []);
-
-  // if (isLoading) {
-  //    return 'is Loading...';
-  // }
 
   // adding a new guest to the list
   async function addNewGuest(event) {
@@ -41,7 +37,7 @@ export default function ListApi() {
     console.log('B');
     const createdGuest = await response.json();
     console.log(createdGuest);
-    setGuest([...guest], createdGuest);
+    setGuests([...guests], createdGuest);
     fetchGuests().catch(() => console.log('adding new guest went wrong'));
     setFirstName('');
     setLastName('');
@@ -53,10 +49,10 @@ export default function ListApi() {
       method: 'DELETE',
     });
     const deletedGuest = await response.json();
-    const newGuestList = guest.filter((i) => {
+    const newGuestList = guests.filter((i) => {
       return i.id !== deletedGuest.id;
     });
-    setGuest(newGuestList);
+    setGuests(newGuestList);
     fetchGuests().catch(() => console.log('deleting guest went wrong'));
   }
 
@@ -70,18 +66,17 @@ export default function ListApi() {
       body: JSON.stringify({ attending: !value }),
     });
     const updatedGuest = await response.json();
-    const updatedGuestList = guest.filter((i) => {
+    const updatedGuestList = guests.filter((i) => {
       return i.id !== updatedGuest.id;
     });
-    setGuest([...guest], updatedGuestList);
+    setGuests([...guests], updatedGuestList);
     fetchGuests().catch(() =>
       console.log('changing attendance status went wrong'),
     );
   }
 
   return (
-    <div data-test-id="guest">
-      {isLoading && <h1>Loading...</h1>}
+    <div>
       <h1>Guest List</h1>
       <div>
         <div>
@@ -114,41 +109,39 @@ export default function ListApi() {
             </form>
           </div>
         </div>
-        <div>
-          {guest.length === 0 ? (
+        <div data-test-id="guest">
+          {isLoading && <h1>Loading...</h1>}
+          {!isLoading && guests.length === 0 ? (
             <div>Add guests to the list!</div>
           ) : (
             <div>
               <h2>Guests:</h2>
-              {guest.map((guestList) => {
+              {guests.map((guest) => {
                 return (
-                  <div key={guestList.id}>
+                  <div key={guest.id}>
                     <div>
-                      {guestList.firstName} {guestList.lastName}
+                      {guest.firstName} {guest.lastName}
                     </div>
                     <label>
                       <input
-                        aria-label={`attending status ${guestList.firstName} ${guestList.lastName}`}
+                        aria-label={`attending status ${guest.firstName} ${guest.lastName}`}
                         type="checkbox"
-                        checked={guestList.attending}
+                        checked={guest.attending}
                         onChange={() => {
                           changeAttendanceStatus(
-                            guestList.id,
-                            guestList.attending,
+                            guest.id,
+                            guest.attending,
                           ).catch((error) => console.log(error));
                         }}
                       />
-                      {guestList.attending === true
-                        ? 'attending'
-                        : 'not attending'}
+                      {guest.attending === true ? 'attending' : 'not attending'}
                     </label>
                     <button
-                      aria-label={`Remove ${guestList.firstName} ${guestList.lastName}`}
+                      aria-label={`Remove ${guest.firstName} ${guest.lastName}`}
                       onClick={() => {
-                        deleteGuest(guestList.id).catch((error) =>
+                        deleteGuest(guest.id).catch((error) =>
                           console.log(error),
                         );
-                        document.form.reset();
                       }}
                     >
                       x
