@@ -14,7 +14,7 @@ export default function ListApi() {
     const response = await fetch(`${baseUrl}/guests`);
     const allGuests = await response.json();
     setGuest(allGuests);
-    setTimeout(() => setIsLoading(false), 3000);
+    setIsLoading(false);
   }
   useEffect(() => {
     fetchGuests().catch(() => console.log('fetching guests went wrong'));
