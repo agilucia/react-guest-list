@@ -110,13 +110,14 @@ export default function ListApi() {
             </form>
           </div>
         </div>
-        <div data-test-id="guest">
-          {isLoading && <h1>Loading...</h1>}
-          {!isLoading && guests.length === 0 ? (
-            <div>Add guests to the list!</div>
-          ) : (
-            <div>
-              <h2>Guests:</h2>
+
+        {isLoading && <h1>Loading...</h1>}
+        {!isLoading && guests.length === 0 ? (
+          <div>Add guests to the list!</div>
+        ) : (
+          <div>
+            <h2>Guests:</h2>
+            <div data-test-id="guest">
               {guests.map((guest) => {
                 return (
                   <div key={guest.id}>
@@ -151,8 +152,8 @@ export default function ListApi() {
                 );
               })}
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
