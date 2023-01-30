@@ -14,8 +14,8 @@ const wholeBodyStyles = css`
   margin-top: 30px;
   margin-bottom: 30px;
   padding-top: 0px;
-  padding-right: 30px;
-  padding-left: 30px;
+  padding-right: 120px;
+  padding-left: 120px;
   padding-bottom: 30px;
   border: 8px double #5c55ae;
   border-radius: 12px;
@@ -84,6 +84,7 @@ const textStyles = css`
   &:hover {
     text-shadow: 1px 1px 2px #3f1c60, 0 0 1em #6b7fd7, 0 0 0.2em #6b7fd7;
   }
+  font-weight: bold;
 `;
 
 const removeButtonStyles = css`
