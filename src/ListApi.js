@@ -117,10 +117,10 @@ export default function ListApi() {
         ) : (
           <div>
             <h2>Guests:</h2>
-            <div data-test-id="guest">
+            <div>
               {guests.map((guest) => {
                 return (
-                  <div key={guest.id}>
+                  <div key={guest.id} data-test-id="guest">
                     <div>
                       {guest.firstName} {guest.lastName}
                     </div>
