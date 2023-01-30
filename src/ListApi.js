@@ -83,23 +83,20 @@ export default function ListApi() {
           <div>
             <h2>Add new Guest:</h2>
             <form name="form" onSubmit={addNewGuest}>
-              <label>
-                First name
-                <input
-                  value={firstName}
-                  onChange={(event) => setFirstName(event.currentTarget.value)}
-                  disabled={isLoading}
-                />
-              </label>
+              <label htmlFor="first_name">First name</label>
+              <input
+                id="first_name"
+                value={firstName}
+                onChange={(event) => setFirstName(event.currentTarget.value)}
+                disabled={isLoading}
+              />
               <br />
-              <label>
-                Last name
-                <input
-                  value={lastName}
-                  onChange={(event) => setLastName(event.currentTarget.value)}
-                  disabled={isLoading}
-                />
-              </label>
+              <label htmlFor="last_name">Last name</label>
+              <input
+                value={lastName}
+                onChange={(event) => setLastName(event.currentTarget.value)}
+                disabled={isLoading}
+              />
               <br />
               <div>
                 <button onClick={addNewGuest} disabled={isLoading}>
