@@ -8,7 +8,8 @@ export default function ListApi() {
   const [isLoading, setIsLoading] = useState(true);
 
   // getting all guests
-  const baseUrl = 'http://localhost:4000';
+  const baseUrl =
+    'https://express-guest-list-api-memory-data-store.agilucia.repl.co';
 
   async function fetchGuests() {
     const response = await fetch(`${baseUrl}/guests`);
@@ -83,21 +84,23 @@ export default function ListApi() {
           <div>
             <h2>Add new Guest:</h2>
             <form name="form" onSubmit={addNewGuest}>
-              <label htmlFor="first_name">First name</label>
-              <input
-                id="first_name"
-                value={firstName}
-                onChange={(event) => setFirstName(event.currentTarget.value)}
-                disabled={isLoading}
-              />
+              <label>
+                First name
+                <input
+                  value={firstName}
+                  onChange={(event) => setFirstName(event.currentTarget.value)}
+                  disabled={isLoading}
+                />
+              </label>
               <br />
-              <label htmlFor="last_name">Last name</label>
-              <input
-                id="last_name"
-                value={lastName}
-                onChange={(event) => setLastName(event.currentTarget.value)}
-                disabled={isLoading}
-              />
+              <label>
+                Last name
+                <input
+                  value={lastName}
+                  onChange={(event) => setLastName(event.currentTarget.value)}
+                  disabled={isLoading}
+                />
+              </label>
               <br />
               <div>
                 <button onClick={addNewGuest} disabled={isLoading}>
