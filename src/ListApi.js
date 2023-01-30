@@ -93,6 +93,7 @@ export default function ListApi() {
               <br />
               <label htmlFor="last_name">Last name</label>
               <input
+                id="last_name"
                 value={lastName}
                 onChange={(event) => setLastName(event.currentTarget.value)}
                 disabled={isLoading}
